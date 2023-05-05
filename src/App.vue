@@ -1,9 +1,26 @@
-<script >
+<script>
+import axios from 'axios';
+import HeaderComp from './components/HeaderComp.vue';
 
+export default{
+    name:'App',
+    components: {
+        HeaderComp,
+    },
+    created(){
+
+    },
+    data(){
+
+    },
+    
+}
 </script>
 
 <template>
-  <h1>Ciao mondo</h1>
+    <header>
+
+    </header>
 </template>
 
 <style lang="scss">
