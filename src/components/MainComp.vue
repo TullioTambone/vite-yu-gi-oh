@@ -18,9 +18,10 @@ export default{
 
 <template>
     <div id="main-id">
-        <div class="banner-counter">
-        </div>
         <div class="row gap-1">
+            <div class="banner-counter">
+                <h5>Carte Trovate: {{ store.arrayCard.length }}</h5>
+            </div>
             <SingolaCarta v-for="(element, index) in store.arrayCard" :key="index" :nomeCard="element"/>
         </div>
     </div>
@@ -29,13 +30,14 @@ export default{
 <style lang="scss" scoped>
 #main-id{
     background-color: white;
-    padding: 1.5rem;
-
+    padding: 1rem;
     .banner-counter{
         background-color: #212529;
-        padding: 1rem;
+        color: white;
+        padding: 0.5rem;
     }
     .row{
+        margin-top: 0.5rem;
         justify-content: center;
     }
 }
