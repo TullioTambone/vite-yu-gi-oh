@@ -29,12 +29,14 @@ export default{
         },
 
         mySelection(myO){
-            if (myO == 'alien') {
-                return '?archetype=Alien'
-            } else if(myO == 'photon'){
-                return '?archetype=Photon'
-            } else if(myO == 'branded'){
-                return '?archetype=Branded';
+
+            switch(myO){
+                case 'alien':
+                    return '?archetype=Alien'
+                case 'photon':
+                    return '?archetype=Photon'
+                case 'branded':
+                    return '?archetype=Branded';
             }
         }
     }
