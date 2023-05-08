@@ -3,44 +3,46 @@ import axios from 'axios';
 import {store} from './store';
 import HeaderComp from './components/HeaderComp.vue';
 import MainComp from './components/MainComp.vue';
+import SelectMainComp from './components/SelectMainComp.vue';
 
 export default{
     name:'App',
     components: {
-        HeaderComp,
-        MainComp,
+    HeaderComp,
+    MainComp,
+    SelectMainComp,
     },
     data(){
         return{
             store,
-            myOption: 'alien',
         }
     },
     created(){
-        this.chiamataApiAlien()
+        this.chiamataApi
+        this.archetypeCall()
+    },
+    computed: {
+        chiamataApi(){
+            if(store.myOption !== ''){
+
+                axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=${store.myOption}`)
+                .then( res =>{
+                    const datiApi = res.data.data
+                    store.arrayCard = datiApi
+                })
+            } else {
+
+            }
+        },
     },
     methods: {
-        chiamataApiAlien(){
-            axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php${this.mySelection(this.myOption)}`)
-            .then( res =>{
-                const datiApi = res.data.data
-                this.store.arrayCard = datiApi
+        archetypeCall(){
+            axios.get('https://db.ygoprodeck.com/api/v7/archetypes.php')
+                .then( (res) =>{
+                this.store.archetypeArray = res.data
             })
         },
-
-        mySelection(myO){
-
-            switch(myO){
-                case 'alien':
-                    return '?archetype=Alien'
-                case 'photon':
-                    return '?archetype=Photon'
-                case 'branded':
-                    return '?archetype=Branded';
-            }
-        }
-    }
-    
+    },
 }
 </script>
 
@@ -49,11 +51,7 @@ export default{
         <HeaderComp/>
     </header>
     <main>
-        <select v-model="myOption" @click="chiamataApiAlien">
-            <option value="alien">Alien</option>
-            <option value="photon">Photon</option>
-            <option value="branded">Branded</option>
-        </select>
+        <SelectMainComp @nomeEmit="chiamataApi"/>
         <MainComp/>
     </main>
 </template>
@@ -64,12 +62,5 @@ export default{
 main{
     background-color: #d48f38;
     padding: 4rem;
-
-    select{
-        padding: 8px 15px;
-        border-radius: 5px;
-        border: none;
-        margin-bottom: 1rem;
-    }
 }
 </style>
